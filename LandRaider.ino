@@ -10,10 +10,14 @@ AF_DCMotor rightWheel(2);
 
 // Left, Right and Front Mid Turret Servos
 Servo leftTurret;
+int leftpos = 0;
 Servo rightTurret;
+int rightpos = 0;
 
 // Combining all lights to input 7
 const int lights = 13;
+
+const int laser = A5;
 
 // Front Door & side door
 //const int doors = 7;
@@ -29,7 +33,14 @@ END CONST DEFINITIONS
  */
 void setup()
 {
+  // Initialize Servos
+  leftTurret.attach(9);
+  rightTurret.attach(10);
+  
+  // Set light output pin
   pinMode(lights, OUTPUT);
+  
+  pinMode(laser, OUTPUT);
 
   Serial.begin(115200);
 }
@@ -102,9 +113,50 @@ void assignCommand(char cmd[])
     toggleMotor(leftWheel, 3);
     toggleMotor(rightWheel, 3);
   }
+  else if(!strcmp(cmd, "q")) //left servo left
+  {
+    Serial.println("-- Left Turret LEFT --");
+    if(leftpos >= 20)
+    {
+      leftpos = leftpos - 20;
+      leftTurret.write(leftpos);
+    } 
+  }
+  else if(!strcmp(cmd, "w"))// left servo right
+  {
+    Serial.println("-- Left Turret RIGHT --");
+    if(leftpos <= 160)
+    {
+      leftpos = leftpos + 20;
+      leftTurret.write(leftpos);
+    }
+  }
+  else if(!strcmp(cmd, "a"))// right servo left
+  {
+    Serial.println("-- Right Turret LEFT --");
+    if(rightpos >= 20)
+    {
+      rightpos = rightpos - 20;
+      rightTurret.write(rightpos);
+    }
+  }
+  else if(!strcmp(cmd, "s"))// right servo right
+  {
+    Serial.println("-- Right Turret RIGHT --");
+    if(rightpos <= 160)
+    {
+      rightpos = rightpos + 20;
+      rightTurret.write(rightpos);
+    }
+  }
+  else if (!strcmp(cmd,"9"))
+  {
+    Serial.println("** Laser toggle **");
+    toggleInput(laser);
+  }
   else if(!strcmp(cmd,"0"))// toggle lights
   { 
-    toggleLights(); 
+    toggleLights();
   }
 }
 
@@ -130,6 +182,25 @@ void toggleMotor(AF_DCMotor motor, int mDirection)
   }
 }
 
+/*
+Toggle an input
+*/
+void toggleInput(int input)
+{
+  int state = digitalRead(input);
+  if(state == LOW)
+  {
+    digitalWrite(input, HIGH);
+  }
+  else
+  {
+    digitalWrite(input, LOW);
+  }
+}
+
+/*
+Toggle LEDs
+*/
 void toggleLights()
 {
   int lightState = digitalRead(lights);
