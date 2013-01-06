@@ -14,6 +14,9 @@ int leftpos = 0;
 Servo rightTurret;
 int rightpos = 0;
 
+// 1: active, 0:kill
+int turretOn = 1;
+
 // Combining all lights to input 7
 const int lights = 13;
 
@@ -115,39 +118,107 @@ void assignCommand(char cmd[])
   }
   else if(!strcmp(cmd, "q")) //left servo left
   {
-    Serial.println("-- Left Turret LEFT --");
-    if(leftpos >= 20)
+    Serial.println("-- Left Turret SWEEP LEFT --");
+    while(turretOn == 1)
     {
-      leftpos = leftpos - 20;
-      leftTurret.write(leftpos);
-    } 
+      if(leftpos >= 0)
+      {
+        leftpos = leftpos - 1;
+        leftTurret.write(leftpos);
+        delay(20);
+      }
+      else 
+      {
+        turretOn =0;
+      }
+    }
+    turretOn = 1;
   }
-  else if(!strcmp(cmd, "w"))// left servo right
+  else if(!strcmp(cmd, "w"))
   {
-    Serial.println("-- Left Turret RIGHT --");
-    if(leftpos <= 160)
+    if(leftpos >=0)
     {
-      leftpos = leftpos + 20;
+      leftpos = leftpos - 30;
       leftTurret.write(leftpos);
     }
   }
-  else if(!strcmp(cmd, "a"))// right servo left
+  else if(!strcmp(cmd, "e"))
   {
-    Serial.println("-- Right Turret LEFT --");
-    if(rightpos >= 20)
+    if(leftpos <= 180)
     {
-      rightpos = rightpos - 20;
+      leftpos = leftpos + 30;
+      leftTurret.write(leftpos);
+    }
+  }
+  else if(!strcmp(cmd, "r"))// left servo right
+  {
+    Serial.println("-- Left Turret SWEEP RIGHT --");
+    while(turretOn == 1)
+    {
+      if(leftpos <= 180)
+      {
+        leftpos = leftpos + 1;
+        leftTurret.write(leftpos);
+        delay(20);
+      }
+      else 
+      {
+        turretOn =0;
+      }
+    }
+    turretOn = 1;
+  }
+  else if(!strcmp(cmd, "a"))
+  {
+    Serial.println("-- Right Turret SWEEP LEFT --");
+    while(turretOn == 1)
+    {
+      if(rightpos >= 0)
+      {
+        rightpos = rightpos - 1;
+        rightTurret.write(rightpos);
+        delay(20);
+      }
+      else 
+      {
+        turretOn =0;
+      }
+    }
+    turretOn = 1;
+  }
+  else if(!strcmp(cmd, "s"))// right servo left
+  {
+    if(rightpos >= 0)
+    {
+      rightpos = rightpos - 30;
       rightTurret.write(rightpos);
     }
   }
-  else if(!strcmp(cmd, "s"))// right servo right
+  else if(!strcmp(cmd, "d"))// right servo right
   {
-    Serial.println("-- Right Turret RIGHT --");
-    if(rightpos <= 160)
+    if(rightpos <= 180)
     {
-      rightpos = rightpos + 20;
+      rightpos = rightpos + 30;
       rightTurret.write(rightpos);
     }
+  }
+  else if(!strcmp(cmd, "f"))
+  {
+    Serial.println("-- Right Turret SWEEP RIGHT --");
+    while(turretOn == 1)
+    {
+      if(rightpos <= 180)
+      {
+        rightpos = rightpos + 1;
+        rightTurret.write(rightpos);
+        delay(20);
+      }
+      else 
+      {
+        turretOn =0;
+      }
+    }
+    turretOn = 1;
   }
   else if (!strcmp(cmd,"9"))
   {
