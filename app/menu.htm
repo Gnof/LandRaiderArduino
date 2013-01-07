@@ -1,0 +1,45 @@
+<div data-bb-type="screen" style="background-color:transparent;" >
+	<div id="tabHome">
+		<!-- replace this logo with something custom -->
+		<!-- <img src="images/mainLogo.png"/> -->
+	</div>
+	
+	
+	<!-- Systems -->
+	<div id="tabSystems" style="display:none;">
+		<!-- The systems tab -->
+	</div>
+	
+	<!-- Settings -->
+	<div id="tabSettings" style="display:none;">
+		<div style="background-color:#696969;padding-bottom:10px;">
+			<div data-bb-type="pill-buttons">
+				<div data-bb-type="pill-button" data-bb-selected="true" onclick="document.getElementById('btConfigured').style.display = '';document.getElementById('btAvailable').style.display = 'none';">Configured</div>
+				<div data-bb-type="pill-button" onclick="document.getElementById('btAvailable').style.display = '';document.getElementById('btConfigured').style.display = 'none';">Available</div>
+			</div>
+		</div>
+		<div id="btConfigured">
+			<div data-bb-type="image-list" data-bb-header-justify="left">
+				<div data-bb-type="header">Configured Bluetooth Devices</div>
+			</div>
+		</div>
+		<div id="btAvailable" style="display:none;">
+			<div data-bb-type="image-list" data-bb-header-justify="left">
+				<div data-bb-type="header">Configured Bluetooth Devices</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Action Bar -->
+	<div data-bb-type="action-bar">
+		<div data-bb-type="action" data-bb-style="tab" data-bb-overflow="true" data-bb-img="images/icons/settings.png" onclick="state.changeTab('tabSettings');">Settings</div>
+		<div data-bb-type="action" data-bb-style="tab" data-bb-selected="true" data-bb-img="images/icons/device.png" onclick="state.changeTab('tabHome');">Controls</div>
+		<div data-bb-type="action" data-bb-style="tab" data-bb-img="images/icons/locked.png" onclick="state.changeTab('tabSystems');">Status</div>
+		<div data-bb-type="action" data-bb-style="button" data-bb-overflow="true" data-bb-img="images/icons/phone.png">Launch Phone</div>
+		<div id="action" data-bb-type="action" data-bb-style="button" data-bb-overflow="true" data-bb-img="images/icons/warning.png" onclick="alert('HiThere!');">Placeholder Action</div>
+		<!-- <div id="actionSuspension" data-bb-type="action" data-bb-style="button" data-bb-overflow="true" data-bb-img="images/icons/cloudUpload.png" onclick="system.triggerSuspension();">Suspension Up</div>
+		<div id="actionWeapons" data-bb-type="action" data-bb-style="button" data-bb-overflow="true" data-bb-img="images/icons/warning.png" onclick="system.triggerWeapons();">Weapons Up</div>
+		<div id="actionCanopy" data-bb-type="action" data-bb-style="button" data-bb-overflow="true" data-bb-pin="true" data-bb-img="images/icons/unlocked.png" onclick="system.triggerCanopy();">Open Canopy</div> -->
+	</div>
+</div>
+	
