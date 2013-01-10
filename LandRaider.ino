@@ -5,8 +5,8 @@
  * CONST DEFINITIONS
  */
 // Motors for wheels
-AF_DCMotor leftWheel(1);
-AF_DCMotor rightWheel(2);
+AF_DCMotor leftWheel(3);
+AF_DCMotor rightWheel(4);
 
 // Left, Right and Front Mid Turret Servos
 Servo leftTurret;
@@ -237,7 +237,7 @@ mDirection - 1: Forward, 2:Backward
 */
 void toggleMotor(AF_DCMotor motor, int mDirection)
 {
-  motor.setSpeed(50);
+  motor.setSpeed(200);
   
   if(mDirection == 1)
   {
